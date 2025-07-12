@@ -4,7 +4,7 @@ namespace DesafioFundamentos.Models
     {
         private decimal precoInicial = 0;
         private decimal precoPorHora = 0;
-        private List<string> veiculos = new List<string>();
+        private List<Veiculo> veiculos = new();
 
         public Estacionamento(decimal precoInicial, decimal precoPorHora)
         {
@@ -14,10 +14,22 @@ namespace DesafioFundamentos.Models
 
         public void AdicionarVeiculo()
         {
+            Veiculo veiculo = new();
             // TODO: Pedir para o usuário digitar uma placa (ReadLine) e adicionar na lista "veiculos"
             /* IMPLEMENTADO! */
             Console.Write("Digite a placa do veículo para estacionar: ");
-            veiculos.Add(Console.ReadLine());
+            veiculo.Placa = Console.ReadLine();
+            Console.Write("Informe o modelo do veículo para estacionar: ");
+            veiculo.Modelo = Console.ReadLine();
+            Console.Write("Informe a cor do veículo para estacionar: ");
+            veiculo.Cor = Console.ReadLine();
+
+            if (this.veiculos.Count > 0 && this.veiculos.LastOrDefault().NumeroTicketEstacionamento != null)
+                veiculo.NumeroTicketEstacionamento = this.veiculos.LastOrDefault().NumeroTicketEstacionamento + 1;
+            else
+                veiculo.NumeroTicketEstacionamento = 1;
+            
+            this.veiculos.Add(veiculo);
         }
 
         public void RemoverVeiculo()
@@ -29,7 +41,7 @@ namespace DesafioFundamentos.Models
             string placa = Console.ReadLine();
 
             // Verifica se o veículo existe
-            if (veiculos.Any(x => x.ToUpper() == placa.ToUpper()))
+            if (veiculos.Any(x => x.Placa.ToUpper() == placa.ToUpper()))
             {
                 Console.Write("Digite a quantidade de horas que o veículo permaneceu estacionado: ");
 
@@ -42,8 +54,11 @@ namespace DesafioFundamentos.Models
 
                 // TODO: Remover a placa digitada da lista de veículos
                 /* IMPLEMENTADO! */
-                veiculos.Remove(placa);
-                Console.WriteLine($"O veículo {placa} foi removido e o preço total foi de: R$ {valorTotal}");
+
+                var VeiculoRemove = veiculos.FirstOrDefault(s => s.Placa.ToUpper() == placa.ToUpper());
+
+                veiculos.Remove(VeiculoRemove);
+                Console.WriteLine($"O veículo {VeiculoRemove.Modelo} {VeiculoRemove.Cor}, com emplacamento {placa} foi removido e o preço total foi de: R$ {valorTotal}");
             }
             else
             {
@@ -59,9 +74,10 @@ namespace DesafioFundamentos.Models
                 Console.WriteLine("Os veículos estacionados são:");
                 // TODO: Realizar um laço de repetição, exibindo os veículos estacionados
                 /* IMPLEMENTADO! */
-                for(int cont = 0; cont < veiculos.Count(); cont++)
+
+                foreach (var veiculo in veiculos)
                 {
-                    Console.WriteLine($"\t{cont + 1} - {veiculos[cont]}");
+                    Console.WriteLine($"\t{veiculo.NumeroTicketEstacionamento} - {veiculo.Modelo} {veiculo.Cor} com emplacamento {veiculo.Placa}");
                 }
             }
             else
