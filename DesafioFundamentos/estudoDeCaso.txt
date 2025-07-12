@@ -1,0 +1,19 @@
+1 - Adicionar Veículo
+2 - Remover Veículo
+    a - Informar preço do serviço
+3 - Listar Veículos Estacionados
+
+
+
+
+Ao acessar a solução, deve solicitar ao usuário para o preço inicial (valor para estacionar);
+Informar logo em seguida o preço por hora
+
+Aparecer menu de opções:
+    1 - cadastrar
+    2 - Remover
+        Digitar a quantidade de horas que o veículo permaneceu estacionado
+    3 - Listar
+    4 - Encerrar
+
+Está armazenando por placa
